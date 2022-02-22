@@ -64,3 +64,9 @@ app.on('activate', () => {
     createWindow()
   }
 })
+
+app.on('ready', () => {
+  if (process.env.NODE_ENV !== 'production') {
+    require('vue-devtools').install()
+  }
+})

@@ -16,15 +16,15 @@
  *   })
  */
 
-import { contextBridge, ipcRenderer } from "electron";
+import { contextBridge, ipcRenderer } from 'electron'
 
-contextBridge.exposeInMainWorld("API", {
+contextBridge.exposeInMainWorld('API', {
   onRequest: (args) => {
-    ipcRenderer.send("onRequest", { ...args });
+    ipcRenderer.send('onRequest', { ...args })
   },
   onResponse: (fn) => {
-    ipcRenderer.send("onResponse", (event, ...args) => {
-      fn(...args);
-    });
-  },
-});
+    ipcRenderer.on('onResponse', (event, ...args) => {
+      fn(...args)
+    })
+  }
+})

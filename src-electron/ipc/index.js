@@ -1,11 +1,17 @@
 import { BrowserWindow, ipcMain } from 'electron'
-import { send } from '../osc'
+import { connect, send, workspaces } from '../osc'
 
 ipcMain.on('onRequest', async (e, args) => {
   console.log('ipcMain', args)
   switch (args.command) {
     case 'send':
-      send(args.value, 1)
+      send(args.value)
+      break
+    case 'connect':
+      connect()
+      break
+    case 'workspaces':
+      workspaces()
       break
     default:
       console.log('default', args)
