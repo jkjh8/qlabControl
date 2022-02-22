@@ -5,7 +5,7 @@ ipcMain.on('onRequest', async (e, args) => {
   console.log('ipcMain', args)
   switch (args.command) {
     case 'send':
-      send()
+      send(args.value, 1)
       break
     default:
       console.log('default', args)

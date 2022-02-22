@@ -8,9 +8,9 @@ oscServer.on('message', (msg) => {
   console.log(msg)
 })
 
-function send() {
-  const client = new Client('192.168.1.36', 53000)
-  client.send('/go', 1)
+function send(addr) {
+  const client = new Client('127.0.0.1', 53000)
+  client.send(addr, 1)
   console.log('send')
 }
 
