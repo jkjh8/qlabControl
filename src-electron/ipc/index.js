@@ -7,7 +7,8 @@ import {
   selectCue,
   playDirect,
   command,
-  selected
+  selected,
+  running
 } from '../osc'
 
 ipcMain.on('onRequest', async (e, args) => {
@@ -42,4 +43,7 @@ ipcMain.on('onRequest', async (e, args) => {
       break
   }
   selected()
+  setTimeout(function () {
+    running()
+  }, 10)
 })
