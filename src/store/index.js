@@ -13,11 +13,13 @@ import { createStore } from 'vuex'
  */
 
 import workspaces from './workspaces'
+import cue from './cue'
 
 export default store(function (/* { ssrContext } */) {
   const Store = createStore({
     modules: {
-      workspaces
+      workspaces,
+      cue
     },
 
     // enable strict mode (adds overhead!)

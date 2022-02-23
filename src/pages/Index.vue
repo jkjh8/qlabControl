@@ -1,15 +1,13 @@
 <template>
-  <q-page class="flex flex-center q-gutter-x-md">
-    <Workspaces />
+  <q-card class="q-gutter-x-md" style="padding: 0 5% 0 5%" flat>
+    <q-card-section>
+      <Workspaces />
+    </q-card-section>
     {{ id }}
-    <div>
-      <q-btn @click="go">GO</q-btn>
-      <q-btn @click="stop">Stop</q-btn>
-      <q-btn @click="pause">Pause</q-btn>
-      <q-btn @click="resume">Resume</q-btn>
-      <q-btn @click="cue1">CUE1/GO</q-btn>
-    </div>
-  </q-page>
+    <q-card-section>
+      <Table />
+    </q-card-section>
+  </q-card>
 </template>
 
 <script>
@@ -17,30 +15,14 @@ import { defineComponent, onBeforeMount, computed } from 'vue'
 import { useStore } from 'vuex'
 
 import Workspaces from '../components/workspaces.vue'
+import Table from '../components/table.vue'
 
 export default defineComponent({
   name: 'PageIndex',
-  components: { Workspaces },
+  components: { Workspaces, Table },
   setup() {
     const { state, commit } = useStore()
-    const workspaces = computed(() => state.workspaces.workspaces)
     const id = computed(() => state.workspaces.id)
-
-    function go() {
-      window.API.onRequest({ command: 'send', value: '/go' })
-    }
-    function stop() {
-      window.API.onRequest({ command: 'send', value: '/stop' })
-    }
-    function pause() {
-      window.API.onRequest({ command: 'send', value: '/pause' })
-    }
-    function resume() {
-      window.API.onRequest({ command: 'connect', value: '/connect' })
-    }
-    function cue1() {
-      window.API.onRequest({ command: 'workspaces', value: '/cue/1/start' })
-    }
 
     onBeforeMount(() => {
       window.API.onResponse((args) => {
@@ -49,18 +31,24 @@ export default defineComponent({
           case 'workspaces':
             commit('workspaces/updateWorkspaces', args.data)
             break
+          case 'cueLists':
+            console.log('updatecue')
+            commit('cue/updateCueLists', args.data)
+            break
+          case 'selectedCues':
+            if (args.data.length) {
+              commit('cue/updateSelectedCue', args.data[0].uniqueID)
+            } else {
+              commit('cue/updateSelectedCue', '')
+            }
+
+            break
         }
       })
     })
 
     return {
-      workspaces,
-      id,
-      go,
-      stop,
-      pause,
-      cue1,
-      resume
+      id
     }
   }
 })

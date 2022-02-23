@@ -1,6 +1,6 @@
 import { BrowserWindow } from 'electron'
 import { Server, Client } from 'node-osc'
-let workspcae_id
+let workspace_id
 
 const ipaddress = '192.168.1.36'
 const port = 53000
@@ -26,28 +26,84 @@ function send(addr) {
   console.log('send')
 }
 
-function connect() {
-  client.send('/connect')
+function connect(workspace) {
+  workspace_id = workspace
+  client.send(`/workspace/${workspace}/connect`)
 }
 
 function workspaces() {
   client.send('/workspaces')
 }
 
+function cueLists() {
+  client.send(`/workspace/${workspace_id}/cueLists`)
+}
+
+function selectCue(id) {
+  client.send(`/workspace/${workspace_id}/select_id/${id}`)
+}
+
+function playDirect(id) {
+  client.send(`/workspace/${workspace_id}/select_id/${id}`)
+  client.send(`/workspace/${workspace_id}/go`)
+}
+
+function selected() {
+  client.send(`/workspace/${workspace_id}/selectedCues`)
+}
+
+function running() {
+  client.send(`/workspace/${workspace_id}/runningCues`)
+}
+
+function runningOrPaused() {
+  client.send(`/workspace/${workspace_id}/runningOrPausedCues`)
+}
+
+function command(str) {
+  client.send(`/workspace/${workspace_id}/${str}`)
+  selected()
+}
+
 function parcing(args) {
-  console.log(args)
-  switch (args.address) {
-    case '/workspaces':
-      console.log(args.data)
-      BrowserWindow.fromId(1).webContents.send('onResponse', {
+  const mainWindow = BrowserWindow.fromId(1)
+  const address = args.address.split('/')
+  switch (address[address.length - 1]) {
+    case 'workspaces':
+      mainWindow.webContents.send('onResponse', {
         section: 'workspaces',
         data: args.data
       })
       break
+    case 'connect':
+      client.send(`/workspace/${workspace_id}/cueLists`)
+      break
+    case 'cueLists':
+      mainWindow.webContents.send('onResponse', {
+        section: 'cueLists',
+        data: args.data
+      })
+    case 'selectedCues':
+      mainWindow.webContents.send('onResponse', {
+        section: 'selectedCues',
+        data: args.data
+      })
+      break
     default:
-      console.error('unknown command')
+      console.error('unknown command', args)
       break
   }
 }
 
-export { send, connect, workspaces }
+export {
+  send,
+  connect,
+  workspaces,
+  cueLists,
+  selectCue,
+  playDirect,
+  selected,
+  running,
+  runningOrPaused,
+  command
+}
