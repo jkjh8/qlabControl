@@ -1,4 +1,5 @@
 import { BrowserWindow, ipcMain } from 'electron'
+import db from '../db'
 import {
   connect,
   send,
@@ -12,9 +13,11 @@ import {
   runningOrPaused,
   cue
 } from '../osc'
+import { createServer, distoryServer } from '../tcp'
 
 ipcMain.on('onRequest', async (e, args) => {
   console.log('ipcMain', args)
+  const mainWindow = BrowserWindow.fromId(1)
   switch (args.command) {
     case 'send':
       send(args.value)
@@ -45,6 +48,26 @@ ipcMain.on('onRequest', async (e, args) => {
       break
     case 'cue':
       cue(args.value)
+      break
+    case 'start':
+      const server = await db.setup.findOne({ section: 'server' })
+      if (server) {
+        mainWindow.webContents.send('onResponse', {
+          command: 'server',
+          status: server.status,
+          port: server.port
+        })
+        if (server.status) {
+          createServer(server.port)
+        }
+      }
+      workspaces()
+      break
+    case 'openServer':
+      createServer(args.port)
+      break
+    case 'closeServer':
+      distoryServer()
       break
     default:
       console.log('default', args)

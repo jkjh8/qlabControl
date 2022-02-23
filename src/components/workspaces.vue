@@ -116,7 +116,7 @@ export default {
     }
 
     onMounted(() => {
-      window.API.onRequest({ command: 'workspaces' })
+      window.API.onRequest({ command: 'start' })
     })
 
     return {

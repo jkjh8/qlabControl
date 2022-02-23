@@ -62,6 +62,13 @@ export default defineComponent({
             const ids = args.data.map((e) => e.uniqueID)
             commit('cue/updateRunningCues', ids)
             break
+          case 'server':
+            console.log(args)
+            if (args.port) {
+              commit('server/updatePort', args.port)
+            }
+            commit('server/updateServerStatus', args.status)
+            break
         }
       })
     })

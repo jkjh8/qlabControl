@@ -2,7 +2,7 @@ import { app, BrowserWindow, nativeTheme } from 'electron'
 import path from 'path'
 import os from 'os'
 
-import db from './db'
+import { createMainMenu } from './menu'
 import './ipc'
 
 // needed in case process is undefined under Linux
@@ -45,6 +45,8 @@ function createWindow() {
       mainWindow.webContents.closeDevTools()
     })
   }
+
+  createMainMenu()
 
   mainWindow.on('closed', () => {
     mainWindow = null
