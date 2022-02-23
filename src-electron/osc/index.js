@@ -1,8 +1,13 @@
 import { BrowserWindow } from 'electron'
 import { Server, Client } from 'node-osc'
+import moment from 'moment'
+
+let now = new Date()
+let qlabStatus = false
+
 let workspace_id
 
-const ipaddress = '192.168.1.36'
+const ipaddress = '192.168.0.119'
 const port = 53000
 
 const client = new Client(ipaddress, port)
@@ -65,7 +70,14 @@ function command(str) {
   selected()
 }
 
+function cue(str) {
+  client.send(`/cue/${str}`)
+}
+
 function parcing(args) {
+  if (args.status === 'ok') {
+    now = new Date()
+  }
   const mainWindow = BrowserWindow.fromId(1)
   const address = args.address.split('/')
   switch (address[address.length - 1]) {
@@ -89,11 +101,28 @@ function parcing(args) {
         data: args.data
       })
       break
+    case 'runningCues':
+      mainWindow.webContents.send('onResponse', {
+        section: 'runningCues',
+        data: args.data
+      })
+      break
     default:
       console.error('unknown command', args)
       break
   }
 }
+
+const hartbite = setInterval(() => {
+  const currTime = new Date()
+  if (currTime - now > 5000) {
+    qlabStatus = false
+  } else {
+    qlabStatus = true
+  }
+  selected()
+  running()
+}, 1000)
 
 export {
   send,
@@ -105,5 +134,7 @@ export {
   selected,
   running,
   runningOrPaused,
-  command
+  command,
+  cue,
+  qlabStatus
 }

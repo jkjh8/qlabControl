@@ -13,6 +13,7 @@
   "dependencies": {
     "@quasar/extras": "^1.0.0",
     "core-js": "^3.6.5",
+    "moment": "^2.29.1",
     "nedb-promises": "^6.0.2",
     "node-osc": "^6.1.14",
     "osc": "2.4.1",

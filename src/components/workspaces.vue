@@ -66,7 +66,15 @@ export default {
         return commit('workspaces/updateId', v)
       }
     })
-    const selectedCueList = ref(null)
+    const selectedCueList = computed({
+      get() {
+        return state.cue.selectedCueList
+      },
+      set(v) {
+        window.API.onRequest({ command: 'selected' })
+        return commit('cue/updateSelectedCueList', v)
+      }
+    })
 
     function updateId() {
       // commit('workspaces/updateId', selectedWorkspace.value)
@@ -74,7 +82,7 @@ export default {
         command: 'selWorkspace',
         value: selectedWorkspace.value
       })
-      selectedCueList.value = null
+      commit('cue/updateSelectedCueList', null)
       commit('cue/updateCues', [])
     }
 

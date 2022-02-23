@@ -1,8 +1,8 @@
 <template>
   <div class="q-ma-md q-gutter-x-md row justify-center">
-    <q-btn icon="svguse:icons.svg#rewind" flat round size="lg">
+    <!-- <q-btn icon="svguse:icons.svg#rewind" flat round size="lg">
       <q-tooltip>Rewind</q-tooltip>
-    </q-btn>
+    </q-btn> -->
     <q-btn
       icon="svguse:icons.svg#play-circle"
       color="green-10"
@@ -13,9 +13,9 @@
     >
       <q-tooltip>Play</q-tooltip>
     </q-btn>
-    <q-btn icon="svguse:icons.svg#pause" color="yellow-8" flat round size="lg">
+    <!-- <q-btn icon="svguse:icons.svg#pause" color="yellow-8" flat round size="lg">
       <q-tooltip>Pause</q-tooltip>
-    </q-btn>
+    </q-btn> -->
     <q-btn
       icon="svguse:icons.svg#stop-circle"
       color="red-10"
@@ -26,7 +26,13 @@
     >
       <q-tooltip>Stop</q-tooltip>
     </q-btn>
-    <q-btn icon="svguse:icons.svg#fast-forward" flat round size="lg">
+    <q-btn
+      icon="svguse:icons.svg#fast-forward"
+      flat
+      round
+      size="lg"
+      @click="ff"
+    >
       <q-tooltip>Fast Forward</q-tooltip>
     </q-btn>
   </div>
@@ -41,10 +47,17 @@ export default {
     function stop() {
       window.API.onRequest({ command: 'command', value: 'stop' })
     }
+    function ff() {
+      window.API.onRequest({
+        command: 'command',
+        value: 'cue/1'
+      })
+    }
 
     return {
       play,
-      stop
+      stop,
+      ff
     }
   }
 }

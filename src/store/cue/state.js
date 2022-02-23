@@ -1,7 +1,10 @@
 export default function () {
   return {
     cueLists: [],
+    selectedCueList: '',
     cues: [],
-    selectedCue: ''
+    selectedCue: '',
+    runningCues: [],
+    pauseCues: []
   }
 }

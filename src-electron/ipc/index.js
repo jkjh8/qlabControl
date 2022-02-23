@@ -8,7 +8,9 @@ import {
   playDirect,
   command,
   selected,
-  running
+  running,
+  runningOrPaused,
+  cue
 } from '../osc'
 
 ipcMain.on('onRequest', async (e, args) => {
@@ -37,6 +39,12 @@ ipcMain.on('onRequest', async (e, args) => {
       break
     case 'command':
       command(args.value)
+      break
+    case 'selected':
+      selected()
+      break
+    case 'cue':
+      cue(args.value)
       break
     default:
       console.log('default', args)
