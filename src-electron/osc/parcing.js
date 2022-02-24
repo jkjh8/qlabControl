@@ -13,6 +13,7 @@ import {
   running,
   runningOrPaused,
   cue,
+  playNum,
   qlabStatus
 } from './index'
 import { createServer, distoryServer } from '../tcp'
@@ -52,6 +53,9 @@ async function parcing(args) {
       break
     case 'cue':
       cue(args.value)
+      break
+    case 'playNum':
+      playNum(args.value)
       break
     case 'start':
       const server = await db.setup.findOne({ section: 'server' })
