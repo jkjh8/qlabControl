@@ -6,7 +6,7 @@ let qlabStatus = false
 
 let workspace_id
 
-const ipaddress = '192.168.0.119'
+const ipaddress = '127.0.0.1'
 const port = 53000
 
 const client = new Client(ipaddress, port)
@@ -45,6 +45,11 @@ function cueLists() {
 
 function selectCue(id) {
   client.send(`/workspace/${workspace_id}/select_id/${id}`)
+}
+
+function playNum(idx) {
+  client.send(`/workspace/${workspace_id}/select/${idx}`)
+  client.send(`/workspace/${workspace_id}/go`)
 }
 
 function playDirect(id) {
@@ -135,5 +140,6 @@ export {
   runningOrPaused,
   command,
   cue,
+  playNum,
   qlabStatus
 }
