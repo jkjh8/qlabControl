@@ -111,6 +111,8 @@ export default {
       cueLists.value.forEach((list) => {
         if (list.uniqueID === selectedCueList.value) {
           commit('cue/updateCues', list.cues)
+          const cueNames = list.cues.map((e) => e.listName)
+          window.API.onRequest({ command: 'cueNames', value: cueNames })
         }
       })
     }

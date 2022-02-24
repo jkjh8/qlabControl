@@ -1,6 +1,5 @@
 import { BrowserWindow } from 'electron'
 import { Server, Client } from 'node-osc'
-import moment from 'moment'
 
 let now = new Date()
 let qlabStatus = false
