@@ -3,11 +3,17 @@
     <q-header class="bg-white text-grey-10" style="padding: 0 5%">
       <q-toolbar class="q-my-md">
         <q-toolbar-title>
-          <div class="q-gutter-x-sm items-center">
-            <q-img style="width: 28px" class="q-ml-md" src="qcontrolLogo.png" />
-            <span class="text-h5" style="font-family: 다음체"
-              >QLAB CONTROL</span
-            >
+          <div class="row justify-start">
+            <span class="q-mx-sm">
+              <q-img style="width: 28px" src="qcontrolLogo.png" />
+            </span>
+            <span class="text-h5 self-end" style="font-family: 다음체">
+              QLAB
+            </span>
+            <span class="self-end" style="font-size: 12px">Control</span>
+            <span v-if="status" class="q-ml-sm self-start">
+              <q-spinner-radio color="green" />
+            </span>
           </div>
         </q-toolbar-title>
         <div class="q-gutter-x-md row no-wrap items-start">

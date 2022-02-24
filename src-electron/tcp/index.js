@@ -4,6 +4,8 @@ import db from '../db'
 
 import { errorDialog } from '../menu/dialog'
 
+import parcing from '../osc/parcing'
+
 let server
 const clients = []
 
@@ -38,13 +40,14 @@ function createServer(port) {
           console.log(e)
           write(socket, 'Not Json Type')
         }
-        // try {
-        //   const r = await ui.command(args)
-        //   write(socket, r)
-        // } catch (e) {
-        //   console.error('socket error', e)
-        //   write(socket, e)
-        // }
+        try {
+          const r = await parcing(args)
+          console.log(r)
+          write(socket, r)
+        } catch (e) {
+          console.error('socket error', e)
+          write(socket, e)
+        }
       })
     })
 
