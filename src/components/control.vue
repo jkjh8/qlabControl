@@ -26,7 +26,7 @@
     >
       <q-tooltip>Stop</q-tooltip>
     </q-btn>
-    <q-btn
+    <!-- <q-btn
       icon="svguse:icons.svg#fast-forward"
       flat
       round
@@ -34,7 +34,7 @@
       @click="ff"
     >
       <q-tooltip>Fast Forward</q-tooltip>
-    </q-btn>
+    </q-btn> -->
   </div>
 </template>
 
