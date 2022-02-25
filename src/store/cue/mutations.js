@@ -1,4 +1,6 @@
 export function updateCues(state, payload) {
+  const cueNames = payload.map((e) => e.listName)
+  window.API.onRequest({ command: 'cueNames', value: cueNames })
   state.cues = payload
 }
 
