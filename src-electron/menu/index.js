@@ -38,79 +38,79 @@ async function createMainMenu(bos, swti) {
             ]
           }
         ]
-      : []),
-    {
-      label: 'File',
-      submenu: [
-        { role: 'reload' },
-        { role: 'forceReload' },
-        { role: 'toggleDevTools' },
-        { type: 'separator' },
-        // {
-        //   label: 'Boot On Start',
-        //   type: 'checkbox',
-        //   id: 'bootOnStart',
-        //   checked: bootOn,
-        //   click: async () => {
-        //     bootOn = !bootOn
-        //     app.setLoginItemSettings({
-        //       openAtLoad: bootOn,
-        //       path: app.getPath('exe')
-        //     })
-        //     await db.setup.update(
-        //       { section: 'bootonstart' },
-        //       { $set: { value: bootOn } },
-        //       { upsert: true }
-        //     )
-        //     changeMenuState()
-        //   }
-        // },
-        // {
-        //   label: 'Start With TrayIcon',
-        //   type: 'checkbox',
-        //   id: 'startWithTrayIcon',
-        //   checked: startTray,
-        //   click: async () => {
-        //     startTray = !startTray
-        //     await db.setup.update(
-        //       { section: 'startwithtrayicon' },
-        //       { $set: { value: startTray } },
-        //       { upsert: true }
-        //     )
-        //     changeMenuState()
-        //   }
-        // },
-        // {
-        //   label: 'show dialog',
-        //   type: 'normal',
-        //   click: () => {
-        //     dialog
-        //       .showMessageBox({
-        //         message: '123',
-        //         buttons: ['cancel', 'ok']
-        //       })
-        //       .then((r) => {
-        //         console.log(r)
-        //       })
-        //   }
-        // },
-        // { type: 'separator' },
-        isMac
-          ? {
-              label: 'close',
-              icon: img_close.resize({ width: 16, height: 16 }),
-              accelerator: 'alt+F4'
-            }
-          : {
-              label: 'Exit',
-              icon: img_close.resize({ width: 16, height: 16 }),
-              accelerator: 'alt+F4',
-              click: () => {
-                app.exit(0)
-              }
-            }
-      ]
-    }
+      : [])
+    // {
+    //   label: 'File',
+    //   submenu: [
+    //     { role: 'reload' },
+    //     { role: 'forceReload' },
+    //     { role: 'toggleDevTools' },
+    //     { type: 'separator' },
+    // {
+    //   label: 'Boot On Start',
+    //   type: 'checkbox',
+    //   id: 'bootOnStart',
+    //   checked: bootOn,
+    //   click: async () => {
+    //     bootOn = !bootOn
+    //     app.setLoginItemSettings({
+    //       openAtLoad: bootOn,
+    //       path: app.getPath('exe')
+    //     })
+    //     await db.setup.update(
+    //       { section: 'bootonstart' },
+    //       { $set: { value: bootOn } },
+    //       { upsert: true }
+    //     )
+    //     changeMenuState()
+    //   }
+    // },
+    // {
+    //   label: 'Start With TrayIcon',
+    //   type: 'checkbox',
+    //   id: 'startWithTrayIcon',
+    //   checked: startTray,
+    //   click: async () => {
+    //     startTray = !startTray
+    //     await db.setup.update(
+    //       { section: 'startwithtrayicon' },
+    //       { $set: { value: startTray } },
+    //       { upsert: true }
+    //     )
+    //     changeMenuState()
+    //   }
+    // },
+    // {
+    //   label: 'show dialog',
+    //   type: 'normal',
+    //   click: () => {
+    //     dialog
+    //       .showMessageBox({
+    //         message: '123',
+    //         buttons: ['cancel', 'ok']
+    //       })
+    //       .then((r) => {
+    //         console.log(r)
+    //       })
+    //   }
+    // },
+    // { type: 'separator' },
+    //     isMac
+    //       ? {
+    //           label: 'close',
+    //           icon: img_close.resize({ width: 16, height: 16 }),
+    //           accelerator: 'alt+F4'
+    //         }
+    //       : {
+    //           label: 'Exit',
+    //           icon: img_close.resize({ width: 16, height: 16 }),
+    //           accelerator: 'alt+F4',
+    //           click: () => {
+    //             app.exit(0)
+    //           }
+    //         }
+    //   ]
+    // }
     // { role: 'editMenu' }
     // {
     //   label: 'Edit',
