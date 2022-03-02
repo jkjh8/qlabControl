@@ -48,6 +48,7 @@ function selectCue(id) {
 }
 
 function playNum(idx) {
+  console.log('playnum', idx)
   client.send(`/workspace/${workspace_id}/select/${idx}`)
   client.send(`/workspace/${workspace_id}/go`)
 }
